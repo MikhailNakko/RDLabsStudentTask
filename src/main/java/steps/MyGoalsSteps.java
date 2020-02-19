@@ -38,6 +38,7 @@ public class MyGoalsSteps extends DefaultStepsData {
                 break;
             case "Add Objective":
                 isButtonVisible = myGoalsPage.getAddObjectiveButton().isVisible();
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + buttonName);
         }

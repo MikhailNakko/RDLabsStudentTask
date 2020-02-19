@@ -19,7 +19,7 @@ public class LoginPageSteps extends DefaultStepsData {
     }
 
     @Step
-    public String getErrorMessageAfterLogin() {
+    public String getEmptyFieldErrorMessageAfterLogin() {
         log.info("Getting error message after unsuccessful login to application");
         return loginPage.getEmptyFieldErrorMessage().waitUntilVisible().getText();
     }
@@ -34,4 +34,17 @@ public class LoginPageSteps extends DefaultStepsData {
     public List<String> getAllUsersRolesFromDropDown() {
         return loginPage.getUserRoles().stream().map(WebElementFacade::getText).collect(Collectors.toList());
     }
+
+    @Step
+    public String getTextValueFromUsernameField() {
+        return loginPage.getLoginInputField().getAttribute("value");
+    }
+
+    @Step
+    public String getInvalidCredentialsErrorMessage() {
+        return loginPage.getInvalidCredentialsMessage().getText();
+    }
+
+
+
 }

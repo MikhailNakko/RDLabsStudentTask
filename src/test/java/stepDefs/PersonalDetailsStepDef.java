@@ -13,7 +13,7 @@ import static utils.DateUtils.DATEPATTERN_US;
 import static utils.DateUtils.getDateInFutureOrPastFromNow;
 import static utils.SessionVariables.DATE_OF_BIRTH;
 
-public class PersonalDatailsStepDef extends DefaultStepsData {
+public class PersonalDetailsStepDef extends DefaultStepsData {
 
     @Steps
     PersonalDetailsSteps personalDetailsSteps;
@@ -41,5 +41,9 @@ public class PersonalDatailsStepDef extends DefaultStepsData {
         List<String> optionsFromNationalitySelect = personalDetailsSteps.getOptionsFromNationalitySelect();
         boolean isSorted = Ordering.natural().isOrdered(optionsFromNationalitySelect);
         softly.assertThat(isSorted).as("Wrong ordering inside select box").isTrue();
+    }
+    @When("I check $radioButtonName button")
+    public void checkRadioButton(String radionButtonName) {
+        personalDetailsSteps.checkGenderRadioButton(radionButtonName);
     }
 }

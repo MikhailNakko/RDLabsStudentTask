@@ -26,11 +26,16 @@ public class LoginPage extends BasePage {
     @FindBy(css = "#spanMessage")
     private WebElementFacade emptyFieldErrorMessage;
 
-    @FindBy(xpath = "//li[@class='dropdown-menu']//li//a")
+    @FindBy(xpath = "//ul[@class='dropdown-menu']//li//a")
     private List<WebElementFacade> userRoles;
 
-    @FindBy(css = ".outer .hidden-md")
+    @FindBy(css = ".col-md-5")
     private WebElementFacade socialMediaContainer;
+
+    @FindBy(css = ".toast-message")
+    private WebElementFacade invalidCredentialsMessage;
+
+
 
     public void enterUserName(String userName) {
         log.info("Login to app with userName " + userName);

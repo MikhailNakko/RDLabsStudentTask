@@ -26,7 +26,7 @@ public class DashboardPageStepDef extends DefaultStepsData {
 
     //https://jbehave.org/reference/latest/aliases.html
 
-    @When("I click on hide menu button")
+    @When("I click on $hide menu button")
     public void whenClickOnTheHideMenuButton() {
         dashboardPageSteps.clickOnHideMenuButton();
     }

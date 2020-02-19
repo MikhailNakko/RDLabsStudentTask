@@ -32,7 +32,7 @@ public class LoginPageStepDef extends DefaultStepsData {
 
     @Then("error message appears with text: $errorText")
     public void checkErrorMessageAfterUnsuccesfulLogin(String errorTextMessage) {
-        softly.assertThat(loginPageSteps.getErrorMessageAfterLogin()).as("Wrong message is shown")
+        softly.assertThat(loginPageSteps.getEmptyFieldErrorMessageAfterLogin()).as("Wrong message is shown")
                 .isEqualTo(errorTextMessage);
     }
 
@@ -46,6 +46,7 @@ public class LoginPageStepDef extends DefaultStepsData {
         List<Map<String, String>> rows = examplesTable.getRows();
         List<String> expectedRoles = new ArrayList<>();
         List<String> actualRoles = loginPageSteps.getAllUsersRolesFromDropDown();
+        System.out.println(actualRoles.get(0));
         for (Map<String, String> row : rows) {
             expectedRoles.add(row.get("role"));
         }
@@ -60,6 +61,20 @@ public class LoginPageStepDef extends DefaultStepsData {
             String socialMediaButtonName = row.get("social_media_button");
             boolean isButtonVisible = socialMediaContainer.then(By.xpath(".//a[contains(@class,'" + socialMediaButtonName + "')]")).isVisible();
             softly.assertThat(isButtonVisible).as(String.format("button %s not visible", socialMediaButtonName)).isTrue();
+
         }
+
+    }
+    @Then("I see '$admin' already filled in the user name field")
+    public void checkDefaultUsernameValueOnLoginPage(String expectedDefaultUsernameValue) {
+        softly.assertThat(loginPageSteps.getTextValueFromUsernameField()).as("Wrong or empty default field " +
+                "value").isEqualTo(expectedDefaultUsernameValue);
+    }
+
+    @Then("I see '$invalidCredentials' message")
+    public void verifyInvalidCredentialsText(String expectedInvalidCredentialsText) {
+        softly.assertThat(loginPageSteps.getInvalidCredentialsErrorMessage()).as("No 'invalid credentials'" +
+                "message or message is does not match the expected one").isEqualTo(expectedInvalidCredentialsText);
     }
 }
+

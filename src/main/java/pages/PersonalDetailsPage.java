@@ -24,6 +24,10 @@ public class PersonalDetailsPage extends BasePage {
     @FindBy(xpath = "//label[@for='emp_gender_1']")
     private WebElementFacade maleRadioButton;
 
+    @FindBy(xpath = "//label[@for='emp_gender_2']")
+    private WebElementFacade femaleRadioButton;
+
+
     public void enterDateOfBirth(String date) {
         log.info(String.format("Putting %s date into [Date of birth] field", date));
         dateOfBirthInputField.clear();
@@ -33,5 +37,9 @@ public class PersonalDetailsPage extends BasePage {
     public void clickOnMaleRadioButton() {
         log.info("set Male radio button checked");
         maleRadioButton.waitUntilVisible().waitUntilClickable().click();
+    }
+
+    public void clickOnFemaleRadioButton(){
+        femaleRadioButton.waitUntilVisible().waitUntilClickable().click();
     }
 }

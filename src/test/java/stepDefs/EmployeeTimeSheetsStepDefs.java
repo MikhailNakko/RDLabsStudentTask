@@ -19,6 +19,6 @@ public class EmployeeTimeSheetsStepDefs extends DefaultStepsData {
     @Then("$fullName is shown in auto fill result")
     public void checkThatFullNameInAutoFillResult(String fullName) {
         String autoCompleteName = employeeTimeSheetsSteps.getTextFromAutoCompleteNameField();
-        softly.assertThat(autoCompleteName).as("Wrong autocomplete text is shown").isEqualTo(fullName);
+        softly.assertThat(autoCompleteName).as("Wrong autocomplete text is shown").contains(fullName);
     }
 }

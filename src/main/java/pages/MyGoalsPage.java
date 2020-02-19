@@ -27,7 +27,7 @@ public class MyGoalsPage extends BasePage {
     @FindBy(xpath = "//a[@data-tooltip='Unapproved Goals']")
     private WebElementFacade unapprovedGoalsButton;
 
-    @FindBy(css = ".toast-container")
+    @FindBy(css = ".toast-message")
     private WebElementFacade unapprovedGoalsInfoMessage;
 
     public void clickOnAddGoalButton() {

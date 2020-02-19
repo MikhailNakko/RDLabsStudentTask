@@ -79,5 +79,10 @@ public abstract class BasePage extends PageObject {
         return withTimeoutOf(Duration.ofSeconds(10)).waitFor(popUpElement);
     }
 
+    public void switchToIFrameFromDefaultContent(String frameName){
+        getDriver().switchTo().defaultContent();
+        getDriver().switchTo().frame(frameName);
+    }
+
 
 }
