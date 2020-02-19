@@ -41,4 +41,21 @@ public class PersonalDetailsSteps extends DefaultStepsData {
             throw new NoSuchElementException("No button with that name found");
         }
     }
+
+    @Step
+    public String checkDateOfBirthErrorText() {
+        return personalDetailsPage.getDateOfBirthErrorMessage().getText();
+    }
+
+    @Step
+    public String getEEORaceDropDownDefaultValue() {
+        return personalDetailsPage.getEeoRaceAndEthnicitySelect().getAttribute("value");
+    }
+
+    @Step
+    public String getEEORaceWarningIfNotSelectedText() {
+        return personalDetailsPage.getEeoRaceAndEthnicityWarningIfNotSelected().getText();
+    }
+
+
 }

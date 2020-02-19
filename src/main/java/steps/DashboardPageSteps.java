@@ -3,6 +3,7 @@ package steps;
 import emuns.ItemsContainer;
 import lombok.extern.slf4j.Slf4j;
 import net.thucydides.core.annotations.Step;
+import org.openqa.selenium.WebElement;
 
 @Slf4j
 public class DashboardPageSteps extends DefaultStepsData {
@@ -47,5 +48,19 @@ public class DashboardPageSteps extends DefaultStepsData {
             default:
                 throw new IllegalStateException("Unexpected value: " + itemsContainer);
         }
+    }
+
+    @Step
+    public boolean isNewsSectionPresent(){
+        return dashboardPage.getNewsContainer().isPresent();
+    }
+
+    @Step
+    public String getNewsSectionHeaderName() {
+        return dashboardPage.getNewsHeaderText().getText();
+    }
+
+    public int getTotalNumberOfNewsItems(){
+        dashboardPage.getNewsItems().stream().map(WebElement::getText)
     }
 }

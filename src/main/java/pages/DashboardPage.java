@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
+import java.util.List;
+
 @Getter
 @Slf4j
 public class DashboardPage extends BasePage {
@@ -35,9 +37,17 @@ public class DashboardPage extends BasePage {
     @FindBy(css = "#legend")
     private WebElementFacade leavesLegend;
 
+    @FindBy(css = ".l6:nth-of-type(5) .dashboardCard-title-for-card")
+    private WebElementFacade newsHeaderText;
+
+    @FindBy(css="#newsOnDashboard")
+    private List<WebElementFacade> newsItems;
+
     public void clickOnHideMenuButton() {
         log.info("Clicking on the [Hide menu] button");
         hideMenuButton.waitUntilVisible().waitUntilClickable().click();
     }
+
+
 
 }

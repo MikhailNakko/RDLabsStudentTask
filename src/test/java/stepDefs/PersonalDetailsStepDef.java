@@ -12,6 +12,7 @@ import java.util.List;
 import static utils.DateUtils.DATEPATTERN_US;
 import static utils.DateUtils.getDateInFutureOrPastFromNow;
 import static utils.SessionVariables.DATE_OF_BIRTH;
+import static resources.Constants.DROPDOWN_DEFAULT_EMPTY_VALUE;
 
 public class PersonalDetailsStepDef extends DefaultStepsData {
 
@@ -45,5 +46,34 @@ public class PersonalDetailsStepDef extends DefaultStepsData {
     @When("I check $radioButtonName button")
     public void checkRadioButton(String radionButtonName) {
         personalDetailsSteps.checkGenderRadioButton(radionButtonName);
+    }
+
+    @When("I set birthday as $1 day from today")
+    public void changeDateOfBirth(int daysFromToday) {
+        String updatedDate = getDateInFutureOrPastFromNow(DATEPATTERN_US, daysFromToday);
+        personalDetailsSteps.enterDateIntoDateBirthField(updatedDate);
+    }
+
+    @When("I try saving my Personal Details")
+    public void savePersonalDetails() {
+        personalDetailsPage.clickOnSavePersonalDetailsButton();
+    }
+
+    @Then("I see '$errorText' error message")
+    public void validateErrorMessageAfterEnteringInvalidBirthDate(String errorText){
+        softly.assertThat(personalDetailsSteps.checkDateOfBirthErrorText()).as("No error text or text itself" +
+                "doesn't match expected").isEqualTo(errorText);
+    }
+
+    @Then("EEO Race and Ethnicity dropdown has no value by default")
+    public void validateEEODropdownHasNoValueByDefault() {
+        softly.assertThat(personalDetailsSteps.getEEORaceDropDownDefaultValue()).as("The default value is not " +
+                "empty").isEqualTo(DROPDOWN_DEFAULT_EMPTY_VALUE);
+    }
+
+    @Then("I see '$Required' error message")
+    public void validateErrorMessageAfterLeavingEEODropdownWithNoValue(String errorText) {
+        softly.assertThat(personalDetailsSteps.getEEORaceWarningIfNotSelectedText()).as("Warning message text" +
+                "does not match the expected one").isEqualTo(errorText);
     }
 }
