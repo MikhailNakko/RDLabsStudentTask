@@ -23,7 +23,7 @@ public class DashboardPage extends BasePage {
     private WebElementFacade newsContainer;
 
     @FindBy(css = "#dashboard__viewDocumentsOnDashboard")
-    private WebElementFacade documentsContainer;
+    private List<WebElementFacade> documentsContainer;
 
     @FindBy(css = ".card-content .material-icons")
     private WebElementFacade threeDotsButtonEmployee;
@@ -40,8 +40,18 @@ public class DashboardPage extends BasePage {
     @FindBy(css = ".l6:nth-of-type(5) .dashboardCard-title-for-card")
     private WebElementFacade newsHeaderText;
 
-    @FindBy(css="#newsOnDashboard")
+    @FindBy(xpath = "//div[@id='newsOnDashboard']//ul[@class='collection']/li")
     private List<WebElementFacade> newsItems;
+
+    @FindBy(css = "#dashboard__viewNewsOnDashboard .right")
+    private WebElementFacade newsCounter;
+
+    @FindBy(css = ".dashboard-outline")
+    private WebElementFacade dashboardContainer;
+
+    @FindBy(xpath = "//div[@id='documentsOnDashboard']//ul[@class='collection']/li")
+    private List<WebElementFacade> documentsItems;
+
 
     public void clickOnHideMenuButton() {
         log.info("Clicking on the [Hide menu] button");

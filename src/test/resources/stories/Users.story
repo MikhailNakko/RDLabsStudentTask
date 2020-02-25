@@ -19,9 +19,25 @@ Then record is shown with following parameters:
 
 !-- TODO implement this scenario
 Scenario: AC-2 Filter by Status 'Disabled' and check that Employee with name Cassidy Hope is NOT shown in the search result
-
+Meta: @regression
+When I open filter users window
+And filter users by Status with option Disabled
+And I click on the Search button in Filter Users window
+Then Cassidy Hope is not shown in the results
 !-- TODO implement this scenario
 Scenario: AC-3 Filter by Admin Role 'Global Admin' and check that Employee with name Cecil Bonaparte is shown in the search result
-
+Meta:
+When I open filter users window
+And filter users by Admin Roles with option Global Admin
+And I click on the Search button in Filter Users window
+Then Cecil Bonaparte is shown in the results
 !-- TODO implement this scenario
 Scenario: AC-4 Check that values saved after closing filter users window
+Meta:
+When I open filter users window
+And filter users by Status with option Disabled
+And filter users by Admin Roles with option Global Salary Admin
+And I click on the Search button in Filter Users window
+And I open filter users window
+Then I see filters Status - Disabled retained
+And I see filters Admin Roles - Global Salary Admin retained

@@ -4,7 +4,9 @@ import grids.UsersGrid;
 import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 import pageComponents.FilterUsersModalWindow;
 
 import java.util.List;
@@ -49,5 +51,28 @@ public class UsersSteps extends DefaultStepsData {
     public List<UsersGrid> getUsersGrid() {
         log.info("Getting [Users] grid");
         return new UsersGrid().getAllItems(usersPage.getDriver());
+    }
+
+    @Step
+    public void filterBy(String dropdownName, String buttonInsideDropdown) {
+        getDriver().findElement(By.xpath("//div[@id='" +
+                removeWhiteSpacesAndConvertToLower(dropdownName) + "_inputfileddiv']")).click();
+        getDriver().findElement(By.xpath("//span[.='" + buttonInsideDropdown + "']")).click();
+    }
+
+    private String removeWhiteSpacesAndConvertToLower(String textToModify) {
+        return StringUtils.deleteWhitespace(textToModify).toLowerCase();
+    }
+
+    @Step
+    public void clickOnCancelButton() {
+        usersPage.getCancelButton().click();
+    }
+
+    public String getDropdownSelectedValueText(String dropdownName) {
+        return getDriver()
+                .findElement(By.cssSelector("div#" + removeWhiteSpacesAndConvertToLower(dropdownName)
+                        + "_inputfileddiv  .select-dropdown"))
+                .getAttribute("value");
     }
 }

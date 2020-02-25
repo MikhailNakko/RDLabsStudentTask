@@ -2,8 +2,9 @@ package steps;
 
 import emuns.ItemsContainer;
 import lombok.extern.slf4j.Slf4j;
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.lang3.StringUtils;
 
 @Slf4j
 public class DashboardPageSteps extends DefaultStepsData {
@@ -50,17 +51,50 @@ public class DashboardPageSteps extends DefaultStepsData {
         }
     }
 
+//    public boolean verifySectionIsPresent(String sectionName) {
+//        ItemsContainer itemsContainer = ItemsContainer.getItemsContainerName(sectionName);
+//        switch (itemsContainer) {
+//            case NEWS:
+//                return
+//        }
+//    }
+
+
+    //
+//    @Step
+//    public boolean isNewsSectionPresent() {
+//        return dashboardPage.getNewsContainer().isPresent();
+//    }
+//
+//    @Step
+//    public String getNewsSectionHeaderName() {
+//        return dashboardPage.getNewsHeaderText().getText();
+//    }
+
     @Step
-    public boolean isNewsSectionPresent(){
-        return dashboardPage.getNewsContainer().isPresent();
+    public int getTotalNumberOfSectionItems(String sectionName) {
+        switch (sectionName) {
+            case "News":
+                return getTotalNumberOfNewsItems();
+            case "Documents":
+                return  getTotalNumberOfDocumentItems();
+            default:
+                throw new IllegalStateException("Unexpected value: " + sectionName);
+        }
+    }
+
+    private int getTotalNumberOfNewsItems() {
+        return dashboardPage.getNewsItems().size();
+    }
+
+    private int getTotalNumberOfDocumentItems() {
+        return dashboardPage.getDocumentsItems().size();
     }
 
     @Step
-    public String getNewsSectionHeaderName() {
-        return dashboardPage.getNewsHeaderText().getText();
+    public int trimCounterString(String stringToTrim) {
+        return Integer.parseInt(StringUtils.substringBetween(stringToTrim, ": ", " /"));
     }
 
-    public int getTotalNumberOfNewsItems(){
-        dashboardPage.getNewsItems().stream().map(WebElement::getText)
-    }
+
 }

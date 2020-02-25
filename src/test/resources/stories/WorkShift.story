@@ -12,10 +12,13 @@ And I go to Work Shifts page
 
 !-- TODO implement this scenario
 Scenario: AC-1 Check that by default General and Twilight work shifts types are shown on work shifts page
-
+Meta:
+Then I see General in the Workshift column
+And I see Twilight in the Workshift column
 !-- TODO implement this scenario
 Scenario: AC-2 Check that Work Shift field on Add work shift model requiired
-
+Meta: @debug
+When I select 10 hours
 !-- TODO implement this scenario
 Scenario: AC-3 Check that value in Hours Per Day field calculated propertly
 

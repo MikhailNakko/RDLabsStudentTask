@@ -14,7 +14,7 @@ public abstract class ItemsContainer {
     }
 
     public String getContainerHeaderText() {
-        return container.find(By.xpath("//div[@id='newsOnDashboard']/../../div[@class='dashboardCard-title-for-card']")).getAttribute("innerText");
+        return container.find(By.xpath("div[@class='dashboardCard-title-for-card']")).getAttribute("innerText");
     }
 
     public String getContainerItemsCounter() {

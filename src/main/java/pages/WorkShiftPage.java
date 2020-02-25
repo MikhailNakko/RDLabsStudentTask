@@ -16,4 +16,18 @@ public class WorkShiftPage extends BasePage {
     @FindBy(css = ".picker--opened .picker__box")
     WebElementFacade timePickerLocator;
 
+    @FindBy(xpath ="//sf-decorator[2]/div[@name='timeForm']//i[@innertext='access_time']")
+    private WebElementFacade selectFromTimepicker;
+
+    @FindBy(css = "sf-decorator:nth-of-type(2) > div[name='timeForm']")
+    private WebElementFacade selectFromTimepickerContainer;
+
+
+
+    public void switchToOverlay() {
+        switchToIFrameFromDefaultContent("modal1");
+    }
+
+
+
 }

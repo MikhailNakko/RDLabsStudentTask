@@ -3,9 +3,11 @@ package steps;
 import grids.WorkShiftGrid;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import pageComponents.AddWorkShiftModalWindow;
 import pageComponents.TimePicker;
+import pages.BasePage;
 
 import java.util.List;
 
@@ -34,4 +36,15 @@ public class WorkShiftsSteps extends DefaultStepsData {
     private TimePicker getTimePickerElement() {
         return new TimePicker(workShiftPage.getTimePickerLocator());
     }
+
+    public void timeSelector(String hours) {
+        List<WebElementFacade> hourValues = getTimePickerElement().getHoursBoard();
+        for (WebElementFacade hourValue : hourValues) {
+            if (hourValue.getText().equals(hours)) {
+                hourValue.click();
+            }
+        }
+    }
+
+
 }

@@ -3,6 +3,7 @@ package stepDefs;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.openqa.selenium.By;
 import steps.CommonSteps;
 import steps.DashboardPageSteps;
 import steps.DefaultStepsData;
@@ -46,19 +47,34 @@ public class DashboardPageStepDef extends DefaultStepsData {
 
     @Then("Legend component appears in $sectionName section")
     public void checkThatLegendAppears(String sectionName) {
-        softly.assertThat(dashboardPageSteps.checkThatLegendAppearsIn(sectionName)).as("Legend component not appears").isTrue();
+        softly.assertThat(dashboardPageSteps.checkThatLegendAppearsIn(sectionName))
+                .as("Legend component not appears").isTrue();
     }
 
-    @Then("news section is present")
-    public void checkNewsSectionPresent() {
-        softly.assertThat((dashboardPageSteps.isNewsSectionPresent())).as("News section is not present")
+    @Then("$News section is present")
+    public void checkSectionPresent(String sectionName) {
+        boolean isSectionPresent = dashboardPage.getDashboardContainer()
+                .then(By.cssSelector("#dashboard__view" + sectionName +"OnDashboard")).isVisible();
+        softly.assertThat(isSectionPresent).as(sectionName + " section is not present")
                 .isTrue();
     }
 
     @Then("section name is $News")
     public void verifyNewsSectionHeaderMatchesExpected(String expectedHeaderText){
-        softly.assertThat(dashboardPageSteps.getNewsSectionHeaderName()).as("Wrong or missing text")
+        softly.assertThat(dashboardPage.getDashboardContainer()
+                .then(By.xpath("//div[@id='" + expectedHeaderText.toLowerCase() +
+                        "OnDashboard']/../../div[@class='dashboardCard-title-for-card']")).getText())
+                .as("Wrong or missing text")
                 .isEqualTo(expectedHeaderText);
+    }
+
+    @Then("$section counter correspond to the actual number of items in the section")
+    public void verifyNewsCounterMatchesActualNumberOfNewsDisplayed(String sectionName){
+        softly.assertThat(dashboardPageSteps.getTotalNumberOfSectionItems(sectionName))
+                .as("Section counter and " +
+                "actual number of section items do not match")
+                .isEqualTo(dashboardPageSteps.trimCounterString(dashboardPage.getDashboardContainer()
+                        .then(By.cssSelector("#dashboard__view" + sectionName + "OnDashboard .right")).getText()));
     }
 
 }

@@ -3,6 +3,7 @@ package steps;
 import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
+import pageComponents.PopUp;
 
 import java.time.Duration;
 import java.util.List;
@@ -42,7 +43,7 @@ public class LoginPageSteps extends DefaultStepsData {
 
     @Step
     public String getInvalidCredentialsErrorMessage() {
-        return loginPage.getInvalidCredentialsMessage().getText();
+        return new PopUp(loginPage.getInvalidCredentialsContainer()).getPopUpMessage();
     }
 
 

@@ -32,8 +32,8 @@ public class LoginPage extends BasePage {
     @FindBy(css = ".col-md-5")
     private WebElementFacade socialMediaContainer;
 
-    @FindBy(css = ".toast-message")
-    private WebElementFacade invalidCredentialsMessage;
+    @FindBy(css = "div#toast-container")
+    private WebElementFacade invalidCredentialsContainer;
 
 
 
@@ -58,5 +58,6 @@ public class LoginPage extends BasePage {
         log.info("Clicking on the [Login as a Different Role] button");
         loginAsDifferentRoleButton.waitUntilVisible().waitUntilClickable().click();
     }
+
 
 }
