@@ -23,7 +23,7 @@ Then Legend component appears in Leave Taken from January by Subunit section
 
 !-- TODO implement this scenario
 Scenario: AC-3 Check that news counter and actual amount of news are same
-Meta:
+Meta: @debug
 Then News section is present
 And section name is News
 And News counter correspond to the actual number of items in the section

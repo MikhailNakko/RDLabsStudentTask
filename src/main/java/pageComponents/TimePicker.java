@@ -24,7 +24,8 @@ public class TimePicker {
         this.topHours = timePickerComponent.find(By.cssSelector(".clockpicker-span-hours"));
         this.topMinutes = timePickerComponent.find(By.cssSelector(".clockpicker-span-minutes"));
         this.hoursBoard = timePickerComponent
-                .thenFindAll(By.cssSelector(".ng-invalid-to-should-be-after-from .clockpicker-hours .clockpicker-tick"));
+                .thenFindAll(By.cssSelector(".clockpicker-hours .clockpicker-tick"));
+                        //(".ng-invalid-to-should-be-after-from .clockpicker-hours .clockpicker-tick"));
         this.minutesBoard = timePickerComponent
                 .thenFindAll(By.cssSelector(".ng-invalid-to-should-be-after-from .clockpicker-minutes .clockpicker-tick"));
         this.okButton = timePickerComponent.find(By.cssSelector(".clockpicker-button"));

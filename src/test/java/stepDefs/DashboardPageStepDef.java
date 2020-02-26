@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import steps.CommonSteps;
 import steps.DashboardPageSteps;
 import steps.DefaultStepsData;
+import utils.Converter;
 
 public class DashboardPageStepDef extends DefaultStepsData {
 
@@ -73,7 +74,7 @@ public class DashboardPageStepDef extends DefaultStepsData {
         softly.assertThat(dashboardPageSteps.getTotalNumberOfSectionItems(sectionName))
                 .as("Section counter and " +
                 "actual number of section items do not match")
-                .isEqualTo(dashboardPageSteps.trimCounterString(dashboardPage.getDashboardContainer()
+                .isEqualTo(Converter.getContainerCounterValue(dashboardPage.getDashboardContainer()
                         .then(By.cssSelector("#dashboard__view" + sectionName + "OnDashboard .right")).getText()));
     }
 

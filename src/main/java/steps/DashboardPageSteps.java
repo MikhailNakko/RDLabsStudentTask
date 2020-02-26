@@ -75,26 +75,15 @@ public class DashboardPageSteps extends DefaultStepsData {
     public int getTotalNumberOfSectionItems(String sectionName) {
         switch (sectionName) {
             case "News":
-                return getTotalNumberOfNewsItems();
+                return dashboardPage.getNewsItems().size();
             case "Documents":
-                return  getTotalNumberOfDocumentItems();
+                return  dashboardPage.getDocumentsItems().size();
             default:
                 throw new IllegalStateException("Unexpected value: " + sectionName);
         }
     }
 
-    private int getTotalNumberOfNewsItems() {
-        return dashboardPage.getNewsItems().size();
-    }
 
-    private int getTotalNumberOfDocumentItems() {
-        return dashboardPage.getDocumentsItems().size();
-    }
-
-    @Step
-    public int trimCounterString(String stringToTrim) {
-        return Integer.parseInt(StringUtils.substringBetween(stringToTrim, ": ", " /"));
-    }
 
 
 }
