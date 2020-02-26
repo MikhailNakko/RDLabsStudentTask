@@ -7,9 +7,10 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import pageComponents.AddWorkShiftModalWindow;
 import pageComponents.TimePicker;
-import pages.BasePage;
+import utils.Converter;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Getter
 @Slf4j
@@ -32,19 +33,50 @@ public class WorkShiftsSteps extends DefaultStepsData {
         return new AddWorkShiftModalWindow(workShiftPage.getAddWorkShiftWindow());
     }
 
-    @Step
     private TimePicker getTimePickerElement() {
         return new TimePicker(workShiftPage.getTimePickerLocator());
     }
 
-    public void timeSelector(String hours) {
-        List<WebElementFacade> hourValues = getTimePickerElement().getHoursBoard();
-        for (WebElementFacade hourValue : hourValues) {
-            if (hourValue.getText().equals(hours)) {
-                hourValue.click();
+    private void pickTimeInsideTimePicker(List<WebElementFacade> timePicker, String timeToPick) {
+        for (WebElementFacade time : timePicker) {
+            if (time.getText().equals(timeToPick)) {
+                time.click();
+                return;
             }
         }
+        throw new NoSuchElementException("Could not pick selected time (" + timeToPick +
+                ". Make sure minutes are within 0-60 range and can be equally divided by 5");
     }
 
+    private void generalSelectTime(String time) {
+        pickTimeInsideTimePicker(getTimePickerElement().getHoursBoard(), Converter.getHoursFromTime(time));
+        pickTimeInsideTimePicker(getTimePickerElement().getMinutesBoard(), Converter.getMinutesFromTime(time));
+    }
 
+    @Step
+    public void selectFromTime(String time) {
+        getAddWorkShiftModalWindow().getFromClockIcon().click();
+        generalSelectTime(time);
+        getTimePickerElement().getOkButton().click();
+    }
+
+    @Step
+    public void selectToTime(String time) {
+        getAddWorkShiftModalWindow().getToClockIcon().click();
+        generalSelectTime(time);
+        getTimePickerElement().getOkButton().click();
+    }
+    @Step
+    public String getHoursPerDay() {
+        return getAddWorkShiftModalWindow().getHoursPerDayInputField().getValue();
+    }
+
+    @Step
+    public void saveAddedWorkShift() {
+        getAddWorkShiftModalWindow().getSaveButton().click();
+    }
+
+    public String getWarningUnderWorkShiftNameText() {
+        return getAddWorkShiftModalWindow().getWarningUnderWorkShiftName().getText();
+    }
 }

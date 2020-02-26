@@ -5,6 +5,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.By;
+import org.yecht.Data;
 import steps.DefaultStepsData;
 import steps.WorkShiftsSteps;
 
@@ -28,11 +29,27 @@ public class WorkShiftsStepDefs extends DefaultStepsData {
         softly.assertThat(workShiftItems).as("The column does NOT contain desired value").contains(valueToCheckIfPresent);
     }
 
-    @When("I select $10 hours")
-    public void selectHour(String hourToSelect) throws InterruptedException {
-        workShiftsSteps.clickOnAddWorkShiftButton();
-        workShiftPage.getSelectFromTimepickerContainer().then(By.xpath("//i[.='access_time']")).click();
-        workShiftsSteps.timeSelector(hourToSelect);
-        Thread.sleep(10000);
+
+
+    @When("I set working shift hours from $fromTime to $toTime")
+    public void setWorkingHoursForShift(String fromTime, String toTime) {
+        workShiftsSteps.selectFromTime(fromTime);
+        workShiftsSteps.selectToTime(toTime);
+    }
+
+    @Then("the Hours per Day field shows $value")
+    public void verifyTime(String expectedText) {
+        softly.assertThat(workShiftsSteps.getHoursPerDay()).isEqualTo(expectedText);
+    }
+
+    @When("I try saving new work shift")
+    public void saveWorkShift() {
+        workShiftsSteps.saveAddedWorkShift();
+    }
+
+    @Then("I see $Required warning under Work Shift field")
+    public void verifyWarningMessageAfterTryingToSaveWhenRequiredFieldsAreLeftEmpty(String expectedWarningMessage) {
+        softly.assertThat(workShiftsSteps.getWarningUnderWorkShiftNameText()).as("Warning message text" +
+                "does not match the expected one").isEqualTo(expectedWarningMessage);
     }
 }
