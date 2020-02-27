@@ -4,8 +4,6 @@ import grids.WorkShiftGrid;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
-import org.openqa.selenium.By;
-import org.yecht.Data;
 import steps.DefaultStepsData;
 import steps.WorkShiftsSteps;
 
@@ -22,13 +20,11 @@ public class WorkShiftsStepDefs extends DefaultStepsData {
         workShiftsSteps.clickOnAddWorkShiftButton();
     }
 
-    @Then("I see $valueToCheckIfPresent in the $columnName column")
-    public void verifyColumnHas(String columnName, String valueToCheckIfPresent) {
-        List<WorkShiftGrid> workShiftGridItems = workShiftsSteps.getWorkShiftGrid();
-        List<String> workShiftItems = workShiftGridItems.stream().map(WorkShiftGrid::getWorkShift).collect(Collectors.toList());
-        softly.assertThat(workShiftItems).as("The column does NOT contain desired value").contains(valueToCheckIfPresent);
+    @Then("I see $valueToCheckIfPresent in the Workshift column")
+    public void verifyColumnHas(String valueToCheckIfPresent) {
+        softly.assertThat(workShiftsSteps.getWorkShiftTypes())
+                .as("The column does NOT contain desired value").contains(valueToCheckIfPresent);
     }
-
 
 
     @When("I set working shift hours from $fromTime to $toTime")

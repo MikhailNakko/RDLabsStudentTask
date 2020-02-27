@@ -36,7 +36,6 @@ public class LoginPage extends BasePage {
     private WebElementFacade invalidCredentialsContainer;
 
 
-
     public void enterUserName(String userName) {
         log.info("Login to app with userName " + userName);
         loginInputField.waitUntilVisible().waitUntilClickable().clear();

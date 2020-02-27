@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import pageComponents.FilterUsersModalWindow;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static utils.SessionVariables.FILTER_USERS_WINDOW;
 
@@ -24,7 +25,7 @@ public class UsersSteps extends DefaultStepsData {
     }
 
     @Step
-    public FilterUsersModalWindow getFiltetUsersWindow() {
+    public FilterUsersModalWindow getFilterUsersWindow() {
         return new FilterUsersModalWindow(usersPage.getFilterUsersModalWindow());
     }
 
@@ -53,6 +54,14 @@ public class UsersSteps extends DefaultStepsData {
         return new UsersGrid().getAllItems(usersPage.getDriver());
     }
 
+    //should this one be more generalized?
+    @Step
+    public List<String> getAllUserNamesFromUsersGrid() {
+        return getUsersGrid().stream().map(UsersGrid::getEmployeeName).collect(Collectors.toList());
+    }
+
+
+    //check
     @Step
     public void filterBy(String dropdownName, String buttonInsideDropdown) {
         getDriver().findElement(By.xpath("//div[@id='" +
@@ -66,9 +75,10 @@ public class UsersSteps extends DefaultStepsData {
 
     @Step
     public void clickOnCancelButton() {
-        usersPage.getCancelButton().click();
+        getFilterUsersWindow().clickOnCancelButton();
     }
 
+    @Step
     public String getDropdownSelectedValueText(String dropdownName) {
         return getDriver()
                 .findElement(By.cssSelector("div#" + removeWhiteSpacesAndConvertToLower(dropdownName)

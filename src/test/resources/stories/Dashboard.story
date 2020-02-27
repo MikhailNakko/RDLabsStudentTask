@@ -21,15 +21,15 @@ Then Legend component appears in Employee Distribution by Subunit section
 When I click on the three dots button inside Leave Taken from January by Subunit section
 Then Legend component appears in Leave Taken from January by Subunit section
 
-!-- TODO implement this scenario
+!-- implement this scenario
 Scenario: AC-3 Check that news counter and actual amount of news are same
-Meta:
+Meta: @regression
 Then News section is present
 And section name is News
 And News counter correspond to the actual number of items in the section
-!-- TODO implement this scenario
+!-- implement this scenario
 Scenario: AC-4 Check that documents counter and actual amount of documents are same
-Meta:
+Meta: @regression
 Then Documents section is present
 And section name is Documents
 And Documents counter correspond to the actual number of items in the section

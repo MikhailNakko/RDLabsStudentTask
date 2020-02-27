@@ -18,9 +18,6 @@ public class MyGoalsPage extends BasePage {
     @FindBy(xpath = "//a[contains(@class, 'blue')]")
     private WebElementFacade addObjectiveButton;
 
-    @FindBy(xpath = "//a[@data-tooltip='Unapproved Goals']")
-    private WebElementFacade unupprovedGoalsButton;
-
     @FindBy(xpath = "//a[@data-tooltip='Filter']")
     private WebElementFacade filterButton;
 

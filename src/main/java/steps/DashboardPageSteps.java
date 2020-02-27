@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import org.apache.commons.lang3.StringUtils;
+import pageComponents.DocumentsContainer;
+import pageComponents.NewsContainer;
 
 @Slf4j
 public class DashboardPageSteps extends DefaultStepsData {
@@ -39,6 +41,7 @@ public class DashboardPageSteps extends DefaultStepsData {
         }
     }
 
+    @Step
     public boolean checkThatLegendAppearsIn(String sectionName) {
         ItemsContainer itemsContainer = ItemsContainer.getItemsContainerName(sectionName);
         switch (itemsContainer) {
@@ -51,39 +54,54 @@ public class DashboardPageSteps extends DefaultStepsData {
         }
     }
 
-//    public boolean verifySectionIsPresent(String sectionName) {
-//        ItemsContainer itemsContainer = ItemsContainer.getItemsContainerName(sectionName);
-//        switch (itemsContainer) {
-//            case NEWS:
-//                return
-//        }
-//    }
+    private DocumentsContainer documentsContainer() {
+        return new DocumentsContainer(dashboardPage.getDocumentsContainer());
+    }
+
+    private NewsContainer newsContainer(){
+        return new NewsContainer(dashboardPage.getNewsContainer());
+    }
 
 
-    //
-//    @Step
-//    public boolean isNewsSectionPresent() {
-//        return dashboardPage.getNewsContainer().isPresent();
-//    }
-//
-//    @Step
-//    public String getNewsSectionHeaderName() {
-//        return dashboardPage.getNewsHeaderText().getText();
-//    }
 
     @Step
     public int getTotalNumberOfSectionItems(String sectionName) {
-        switch (sectionName) {
-            case "News":
-                return dashboardPage.getNewsItems().size();
-            case "Documents":
-                return  dashboardPage.getDocumentsItems().size();
+        ItemsContainer itemsContainer = ItemsContainer.getItemsContainerName(sectionName);
+        switch (itemsContainer) {
+            case NEWS:
+                return newsContainer().getContainerItems().size();
+            case DOCUMENTS:
+                return documentsContainer().getContainerItems().size();
             default:
                 throw new IllegalStateException("Unexpected value: " + sectionName);
         }
     }
 
+    @Step
+    public String getSectionHeaderText(String sectionName) {
+        ItemsContainer itemsContainer = ItemsContainer.getItemsContainerName(sectionName);
+        switch (itemsContainer) {
+            case NEWS:
+                return newsContainer().getContainerHeaderText();
+            case DOCUMENTS:
+                return documentsContainer().getContainerHeaderText();
+            default:
+                throw new IllegalStateException("Unexpected value: " + sectionName);
+        }
+    }
 
+    @Step
+    public String getSectionItemsCounterText(String sectionName) {
+        ItemsContainer itemsContainer = ItemsContainer.getItemsContainerName(sectionName);
+        switch (itemsContainer) {
+            case NEWS:
+                return newsContainer().getContainerItemsCounter();
+            case DOCUMENTS:
+                return documentsContainer().getContainerItemsCounter();
+            default:
+                throw new IllegalStateException("Unexpected value: " + sectionName);
+        }
+    }
 
 
 }

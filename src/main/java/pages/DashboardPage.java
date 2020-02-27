@@ -5,13 +5,20 @@ import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-import java.util.List;
-
 @Getter
 @Slf4j
 public class DashboardPage extends BasePage {
 
     public static final String PAGE_TITLE = "OrangeHRM";
+
+    @FindBy(css = ".card-content .material-icons")
+    private WebElementFacade threeDotsButtonEmployee;
+
+    @FindBy(css = ".l6:nth-of-type(3) .card-content .material-icons")
+    private WebElementFacade threeDotsButtonLeaves;
+
+    @FindBy(css = ".dashboard-outline")
+    private WebElementFacade dashboardContainer;
 
     @FindBy(css = "#account-name")
     private WebElementFacade accountNameLabel;
@@ -19,45 +26,26 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//a[@id='side-menu-hamburger']")
     private WebElementFacade hideMenuButton;
 
-    @FindBy(css = "#dashboard__viewNewsOnDashboard")
+    @FindBy(css = ".l6:nth-of-type(5)")
     private WebElementFacade newsContainer;
 
-    @FindBy(css = "#dashboard__viewDocumentsOnDashboard")
-    private List<WebElementFacade> documentsContainer;
+    @FindBy(css = ".l6:nth-of-type(4)")
+    private WebElementFacade documentsContainer;
 
     @FindBy(css = ".card-content .material-icons")
-    private WebElementFacade threeDotsButtonEmployee;
-
-    @FindBy (css = ".l6:nth-of-type(3) .card-content .material-icons")
-    private WebElementFacade threeDotsButtonLeaves;
+    private WebElementFacade threeDotsButton;
 
     @FindBy(css = "#task-list-group-panel-menu_holder-legend")
     private WebElementFacade employeeLegend;
 
     @FindBy(css = "#legend")
+
     private WebElementFacade leavesLegend;
-
-    @FindBy(css = ".l6:nth-of-type(5) .dashboardCard-title-for-card")
-    private WebElementFacade newsHeaderText;
-
-    @FindBy(xpath = "//div[@id='newsOnDashboard']//ul[@class='collection']/li")
-    private List<WebElementFacade> newsItems;
-
-    @FindBy(css = "#dashboard__viewNewsOnDashboard .right")
-    private WebElementFacade newsCounter;
-
-    @FindBy(css = ".dashboard-outline")
-    private WebElementFacade dashboardContainer;
-
-    @FindBy(xpath = "//div[@id='documentsOnDashboard']//ul[@class='collection']/li")
-    private List<WebElementFacade> documentsItems;
-
 
     public void clickOnHideMenuButton() {
         log.info("Clicking on the [Hide menu] button");
         hideMenuButton.waitUntilVisible().waitUntilClickable().click();
     }
-
 
 
 }

@@ -62,9 +62,7 @@ public class DashboardPageStepDef extends DefaultStepsData {
 
     @Then("section name is $News")
     public void verifyNewsSectionHeaderMatchesExpected(String expectedHeaderText){
-        softly.assertThat(dashboardPage.getDashboardContainer()
-                .then(By.xpath("//div[@id='" + expectedHeaderText.toLowerCase() +
-                        "OnDashboard']/../../div[@class='dashboardCard-title-for-card']")).getText())
+        softly.assertThat(dashboardPageSteps.getSectionHeaderText(expectedHeaderText))
                 .as("Wrong or missing text")
                 .isEqualTo(expectedHeaderText);
     }
@@ -74,8 +72,7 @@ public class DashboardPageStepDef extends DefaultStepsData {
         softly.assertThat(dashboardPageSteps.getTotalNumberOfSectionItems(sectionName))
                 .as("Section counter and " +
                 "actual number of section items do not match")
-                .isEqualTo(Converter.getContainerCounterValue(dashboardPage.getDashboardContainer()
-                        .then(By.cssSelector("#dashboard__view" + sectionName + "OnDashboard .right")).getText()));
+                .isEqualTo(Converter.getContainerCounterValue(dashboardPageSteps.getSectionItemsCounterText(sectionName)));
     }
 
 }

@@ -2,14 +2,10 @@ package steps;
 
 import net.thucydides.core.annotations.Step;
 import org.openqa.selenium.By;
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
-
-import static org.reflections.Reflections.log;
 
 public class PersonalDetailsSteps extends DefaultStepsData {
 
@@ -26,9 +22,8 @@ public class PersonalDetailsSteps extends DefaultStepsData {
 
     @Step
     public List<String> getOptionsFromNationalitySelect() {
-        List<String> nationalityOptions = personalDetailsPage.getNationalitySelect().thenFindAll(By.xpath("./..//li//span"))
+        return personalDetailsPage.getNationalitySelect().thenFindAll(By.xpath("./..//li//span"))
                 .stream().map(we -> we.getAttribute("innerText")).collect(Collectors.toList());
-        return nationalityOptions;
     }
 
     @Step

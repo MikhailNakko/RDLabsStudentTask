@@ -59,6 +59,8 @@ public class PersonalDetailsStepDef extends DefaultStepsData {
         personalDetailsPage.clickOnSavePersonalDetailsButton();
     }
 
+
+    //No element exception here counts towards Broken instead of Failed
     @Then("I see '$errorText' error message")
     public void validateErrorMessageAfterEnteringInvalidBirthDate(String errorText){
         softly.assertThat(personalDetailsSteps.checkDateOfBirthErrorText()).as("No error text or text itself" +

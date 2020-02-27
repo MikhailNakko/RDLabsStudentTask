@@ -48,24 +48,23 @@ public class UsersPageStepDef extends DefaultStepsData {
         usersSteps.filterBy(filterName, filterValue);
     }
 
-    @Then("$userToSearch is $isShown in the results")
+    @Then("$userToSearch is $condition in the results")
     public void validateSearchResult(String searchResultToTest, String condition) {
-        List<UsersGrid> allItems = usersSteps.getUsersGrid();
-        for (UsersGrid allItem : allItems) {
-            if (condition.contains("not")) {
-                softly.assertThat(allItem.getUserName()).as("The expected result was found in " +
-                        "the actual result page which is NOT expected").isNotEqualToIgnoringCase(searchResultToTest);
-            } else {
-                softly.assertThat(allItem.getUserName()).as("The expected result was NOT found in " +
-                        "the actual result page").isEqualToIgnoringCase(searchResultToTest);
-            }
+        if (condition.contains("not")) {
+            softly.assertThat(usersSteps.getAllUserNamesFromUsersGrid()).as("The expected result was found in " +
+                    "the actual result page which is NOT expected").doesNotContainSequence(searchResultToTest);
+        } else {
+            softly.assertThat(usersSteps.getAllUserNamesFromUsersGrid()).as("The expected result was NOT found in " +
+                    "the actual result page").contains(searchResultToTest);
         }
     }
+
 
     @When("I click on Cancel button in Filter Users window")
     public void cancelSearch() {
         usersSteps.clickOnCancelButton();
     }
+
     @Then("I see filters $filterName - $filterValue retained")
     public void verifyFiltersAreRetainedAfterCancellingSearch(String filterName, String filterValue) {
         softly.assertThat(usersSteps.getDropdownSelectedValueText(filterName))

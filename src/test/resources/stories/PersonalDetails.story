@@ -30,13 +30,13 @@ When I check Male button
 Then check box Female is not checked
 When I check Female button
 Then check box Male is not checked
-!-- TODO implement this scenario
+!--  implement this scenario
 Scenario: AC-5 Check that error message "Should be on or before today" must be shown if user enter birth date in future (next day after today)
 Meta: @regression
 When I set birthday as 1 day from today
 And I try saving my Personal Details
 Then I see 'Should be on or before today' error message
-!-- TODO implement this scenario
+!-- implement this scenario
 Scenario: AC-6 Check that error message with text Required appears under EEO Race and Ethnicity field after click on Save button
 Meta: @regression
 Then EEO Race and Ethnicity dropdown has no value by default

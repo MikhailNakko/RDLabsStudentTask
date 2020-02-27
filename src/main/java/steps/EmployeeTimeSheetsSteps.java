@@ -3,7 +3,6 @@ package steps;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.thucydides.core.annotations.Step;
-import org.openqa.selenium.By;
 
 import java.time.Duration;
 

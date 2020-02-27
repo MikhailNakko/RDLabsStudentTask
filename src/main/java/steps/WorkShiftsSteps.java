@@ -11,6 +11,7 @@ import utils.Converter;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Getter
 @Slf4j
@@ -45,27 +46,33 @@ public class WorkShiftsSteps extends DefaultStepsData {
             }
         }
         throw new NoSuchElementException("Could not pick selected time (" + timeToPick +
-                ". Make sure minutes are within 0-60 range and can be equally divided by 5");
+                ". Make sure minutes are within 0-60 range and can be equally divided by 5 and " +
+                "hours have 24-hour format");
     }
 
-    private void generalSelectTime(String time) {
+    private void selectTimeGeneral(String time) {
         pickTimeInsideTimePicker(getTimePickerElement().getHoursBoard(), Converter.getHoursFromTime(time));
         pickTimeInsideTimePicker(getTimePickerElement().getMinutesBoard(), Converter.getMinutesFromTime(time));
+    }
+
+    public List<String> getWorkShiftTypes() {
+        return getWorkShiftGrid().stream().map(WorkShiftGrid::getWorkShift).collect(Collectors.toList());
     }
 
     @Step
     public void selectFromTime(String time) {
         getAddWorkShiftModalWindow().getFromClockIcon().click();
-        generalSelectTime(time);
+        selectTimeGeneral(time);
         getTimePickerElement().getOkButton().click();
     }
 
     @Step
     public void selectToTime(String time) {
         getAddWorkShiftModalWindow().getToClockIcon().click();
-        generalSelectTime(time);
+        selectTimeGeneral(time);
         getTimePickerElement().getOkButton().click();
     }
+
     @Step
     public String getHoursPerDay() {
         return getAddWorkShiftModalWindow().getHoursPerDayInputField().getValue();
@@ -76,6 +83,7 @@ public class WorkShiftsSteps extends DefaultStepsData {
         getAddWorkShiftModalWindow().getSaveButton().click();
     }
 
+    @Step
     public String getWarningUnderWorkShiftNameText() {
         return getAddWorkShiftModalWindow().getWarningUnderWorkShiftName().getText();
     }
