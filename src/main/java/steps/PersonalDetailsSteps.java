@@ -1,10 +1,10 @@
 package steps;
 
+import enums.PersonalDetailsItems;
 import net.thucydides.core.annotations.Step;
 import org.openqa.selenium.By;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class PersonalDetailsSteps extends DefaultStepsData {
@@ -28,12 +28,16 @@ public class PersonalDetailsSteps extends DefaultStepsData {
 
     @Step
     public void checkGenderRadioButton(String genderButtonName) {
-        if (genderButtonName.equals("Male")) {
-            personalDetailsPage.clickOnMaleRadioButton();
-        } else if (genderButtonName.equals("Female")) {
-            personalDetailsPage.clickOnFemaleRadioButton();
-        } else {
-            throw new NoSuchElementException("No button with that name found");
+        PersonalDetailsItems personalDetailsItems = PersonalDetailsItems.getPersonalDetailsItems(genderButtonName);
+        switch (personalDetailsItems) {
+            case MALE:
+                personalDetailsPage.clickOnMaleRadioButton();
+                break;
+            case FEMALE:
+                personalDetailsPage.clickOnFemaleRadioButton();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value " + genderButtonName + "\n Should be either 'Male' or 'Female'");
         }
     }
 

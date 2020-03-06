@@ -20,7 +20,7 @@ public class PersonalDetailsStepDef extends DefaultStepsData {
     PersonalDetailsSteps personalDetailsSteps;
 
     @Then("I save current Date of Birth to session")
-    public void saveCurentDateOfBirthToSession() {
+    public void saveCurrentDateOfBirthToSession() {
         DATE_OF_BIRTH.put(personalDetailsSteps.getValueFromDateOfBirthField());
     }
 
@@ -44,8 +44,8 @@ public class PersonalDetailsStepDef extends DefaultStepsData {
         softly.assertThat(isSorted).as("Wrong ordering inside select box").isTrue();
     }
     @When("I check $radioButtonName button")
-    public void checkRadioButton(String radionButtonName) {
-        personalDetailsSteps.checkGenderRadioButton(radionButtonName);
+    public void checkRadioButton(String radioButtonName) {
+        personalDetailsSteps.checkGenderRadioButton(radioButtonName);
     }
 
     @When("I set birthday as $1 day from today")

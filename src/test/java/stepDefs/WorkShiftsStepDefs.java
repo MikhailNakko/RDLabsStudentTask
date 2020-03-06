@@ -1,14 +1,10 @@
 package stepDefs;
 
-import grids.WorkShiftGrid;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import steps.DefaultStepsData;
 import steps.WorkShiftsSteps;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class WorkShiftsStepDefs extends DefaultStepsData {
 
@@ -27,10 +23,10 @@ public class WorkShiftsStepDefs extends DefaultStepsData {
     }
 
 
-    @When("I set working shift hours from $fromTime to $toTime")
-    public void setWorkingHoursForShift(String fromTime, String toTime) {
-        workShiftsSteps.selectFromTime(fromTime);
-        workShiftsSteps.selectToTime(toTime);
+    @When("I set working shift hours $from $time $to $time")
+    public void setWorkingHoursForShift(String from, String time1, String to, String time2) {
+        workShiftsSteps.selectTime(from, time1);
+        workShiftsSteps.selectTime(to, time2);
     }
 
     @Then("the Hours per Day field shows $value")

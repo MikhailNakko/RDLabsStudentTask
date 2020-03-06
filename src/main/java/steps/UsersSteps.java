@@ -25,7 +25,7 @@ public class UsersSteps extends DefaultStepsData {
     }
 
     @Step
-    public FilterUsersModalWindow getFilterUsersWindow() {
+    private FilterUsersModalWindow getFilterUsersWindow() {
         return new FilterUsersModalWindow(usersPage.getFilterUsersModalWindow());
     }
 
@@ -65,12 +65,8 @@ public class UsersSteps extends DefaultStepsData {
     @Step
     public void filterBy(String dropdownName, String buttonInsideDropdown) {
         getDriver().findElement(By.xpath("//div[@id='" +
-                removeWhiteSpacesAndConvertToLower(dropdownName) + "_inputfileddiv']")).click();
+                usersPage.removeWhiteSpacesAndConvertToLower(dropdownName) + "_inputfileddiv']")).click();
         getDriver().findElement(By.xpath("//span[.='" + buttonInsideDropdown + "']")).click();
-    }
-
-    private String removeWhiteSpacesAndConvertToLower(String textToModify) {
-        return StringUtils.deleteWhitespace(textToModify).toLowerCase();
     }
 
     @Step
@@ -81,7 +77,7 @@ public class UsersSteps extends DefaultStepsData {
     @Step
     public String getDropdownSelectedValueText(String dropdownName) {
         return getDriver()
-                .findElement(By.cssSelector("div#" + removeWhiteSpacesAndConvertToLower(dropdownName)
+                .findElement(By.cssSelector("div#" + usersPage.removeWhiteSpacesAndConvertToLower(dropdownName)
                         + "_inputfileddiv  .select-dropdown"))
                 .getAttribute("value");
     }

@@ -43,7 +43,7 @@ public class LoginPageSteps extends DefaultStepsData {
 
     @Step
     public String getInvalidCredentialsErrorMessage() {
-        return new PopUp(loginPage.getInvalidCredentialsContainer()).getPopUpMessage();
+        return loginPage.getPopUpElement().getText();
     }
 
 

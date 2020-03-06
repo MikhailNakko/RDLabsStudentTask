@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -82,6 +83,10 @@ public abstract class BasePage extends PageObject {
     public void switchToIFrameFromDefaultContent(String frameName){
         getDriver().switchTo().defaultContent();
         getDriver().switchTo().frame(frameName);
+    }
+
+    public String removeWhiteSpacesAndConvertToLower(String textToModify) {
+        return StringUtils.deleteWhitespace(textToModify).toLowerCase();
     }
 
 

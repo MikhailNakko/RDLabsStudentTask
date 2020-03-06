@@ -52,7 +52,7 @@ public class UsersPageStepDef extends DefaultStepsData {
     public void validateSearchResult(String searchResultToTest, String condition) {
         if (condition.contains("not")) {
             softly.assertThat(usersSteps.getAllUserNamesFromUsersGrid()).as("The expected result was found in " +
-                    "the actual result page which is NOT expected").doesNotContainSequence(searchResultToTest);
+                    "the actual result page which is NOT expected").doesNotContain(searchResultToTest);
         } else {
             softly.assertThat(usersSteps.getAllUserNamesFromUsersGrid()).as("The expected result was NOT found in " +
                     "the actual result page").contains(searchResultToTest);

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class WorkShiftsSteps extends DefaultStepsData {
 
     @Step
-    public List<WorkShiftGrid> getWorkShiftGrid() {
+    private List<WorkShiftGrid> getWorkShiftGrid() {
         log.info("Getting Work Shift table from Work Shifts page");
         return new WorkShiftGrid().getAllItems(getDriver());
     }
@@ -50,7 +50,7 @@ public class WorkShiftsSteps extends DefaultStepsData {
                 "hours have 24-hour format");
     }
 
-    private void selectTimeGeneral(String time) {
+    private void selectTimeBaseMethod(String time) {
         pickTimeInsideTimePicker(getTimePickerElement().getHoursBoard(), Converter.getHoursFromTime(time));
         pickTimeInsideTimePicker(getTimePickerElement().getMinutesBoard(), Converter.getMinutesFromTime(time));
     }
@@ -60,16 +60,18 @@ public class WorkShiftsSteps extends DefaultStepsData {
     }
 
     @Step
-    public void selectFromTime(String time) {
-        getAddWorkShiftModalWindow().getFromClockIcon().click();
-        selectTimeGeneral(time);
-        getTimePickerElement().getOkButton().click();
-    }
-
-    @Step
-    public void selectToTime(String time) {
-        getAddWorkShiftModalWindow().getToClockIcon().click();
-        selectTimeGeneral(time);
+    public void selectTime(String selectType, String time) {
+        switch (selectType.toLowerCase()) {
+            case "from":
+                getAddWorkShiftModalWindow().getFromClockIcon().click();
+                break;
+            case "to":
+                getAddWorkShiftModalWindow().getToClockIcon().click();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + selectType + "\n should be either 'to' or 'from'");
+        }
+        selectTimeBaseMethod(time);
         getTimePickerElement().getOkButton().click();
     }
 

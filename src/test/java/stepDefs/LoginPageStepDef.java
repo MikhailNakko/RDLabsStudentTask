@@ -31,7 +31,7 @@ public class LoginPageStepDef extends DefaultStepsData {
     }
 
     @Then("error message appears with text: $errorText")
-    public void checkErrorMessageAfterUnsuccesfulLogin(String errorTextMessage) {
+    public void checkErrorMessageAfterUnsuccessfulLogin(String errorTextMessage) {
         softly.assertThat(loginPageSteps.getEmptyFieldErrorMessageAfterLogin()).as("Wrong message is shown")
                 .isEqualTo(errorTextMessage);
     }
@@ -74,7 +74,7 @@ public class LoginPageStepDef extends DefaultStepsData {
     @Then("I see '$invalidCredentials' message")
     public void verifyInvalidCredentialsText(String expectedInvalidCredentialsText) {
         softly.assertThat(loginPageSteps.getInvalidCredentialsErrorMessage()).as("No 'invalid credentials'" +
-                "message or message is does not match the expected one").isEqualTo(expectedInvalidCredentialsText);
+                "message or message is does not match the expected one").contains(expectedInvalidCredentialsText);
     }
 }
 

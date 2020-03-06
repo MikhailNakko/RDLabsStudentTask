@@ -1,6 +1,6 @@
 package steps;
 
-import emuns.SortingOrder;
+import enums.SortingOrder;
 import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
@@ -8,7 +8,7 @@ import net.thucydides.core.webelements.Checkbox;
 import org.openqa.selenium.By;
 import pageComponents.LeftMenu;
 
-import static emuns.SortingOrder.getSortingOrder;
+import static enums.SortingOrder.getSortingOrder;
 
 @Slf4j
 public class CommonSteps extends DefaultStepsData {

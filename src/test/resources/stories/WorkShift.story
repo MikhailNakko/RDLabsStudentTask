@@ -23,7 +23,7 @@ And I try saving new work shift
 Then I see Required warning under Work Shift field
 !-- implement this scenario
 Scenario: AC-3 Check that value in Hours Per Day field calculated propertly
-Meta: @debug @regression
+Meta: @regression
 When I click on Add Work Shift button
 And I set working shift hours from 10:50 to 18:20
 Then the Hours per Day field shows 7.50

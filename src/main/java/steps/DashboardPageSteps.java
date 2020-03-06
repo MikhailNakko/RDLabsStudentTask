@@ -1,10 +1,9 @@
 package steps;
 
-import emuns.ItemsContainer;
+import enums.ItemsContainer;
 import lombok.extern.slf4j.Slf4j;
-import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
-import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
 import pageComponents.DocumentsContainer;
 import pageComponents.NewsContainer;
 
@@ -101,6 +100,11 @@ public class DashboardPageSteps extends DefaultStepsData {
             default:
                 throw new IllegalStateException("Unexpected value: " + sectionName);
         }
+    }
+
+    public boolean isSectionPresent(String sectionName) {
+        return dashboardPage.getDashboardContainer()
+                .then(By.cssSelector("#dashboard__view" + sectionName +"OnDashboard")).isVisible();
     }
 
 

@@ -54,9 +54,8 @@ public class DashboardPageStepDef extends DefaultStepsData {
 
     @Then("$News section is present")
     public void checkSectionPresent(String sectionName) {
-        boolean isSectionPresent = dashboardPage.getDashboardContainer()
-                .then(By.cssSelector("#dashboard__view" + sectionName +"OnDashboard")).isVisible();
-        softly.assertThat(isSectionPresent).as(sectionName + " section is not present")
+        softly.assertThat(dashboardPageSteps.isSectionPresent(sectionName))
+                .as(sectionName + " section is not present")
                 .isTrue();
     }
 
